@@ -1,0 +1,5 @@
+backend/env
+backend/src/djreact/__pycache__
+backend/src/articles/__pycache__
+backend/src/articles/migrations/__pycache__
+frontend/gui/node_modules
