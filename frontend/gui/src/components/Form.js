@@ -27,8 +27,6 @@ export default function CustomForm(props) {
     }
   };
 
-  // now we need to define onSubmit as an arrow function based on the event
-  // the requestType & articleID will be passed as props
   return (
     <div>
       <Form onSubmit={e => handleSubmit(e, props.requestType, props.articleID)}>

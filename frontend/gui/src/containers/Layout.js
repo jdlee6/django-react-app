@@ -1,9 +1,16 @@
 import { Layout, Menu, Breadcrumb } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as actions from '../actions/authActions';
 const { Header, Content, Footer } = Layout;
 
-export default function CustomLayout(props) {
+function CustomLayout(props) {
+  const onTryAutoSignup = props.onTryAutoSignup;
+  useEffect(() => {
+    onTryAutoSignup();
+  }, [onTryAutoSignup]);
+
   return (
     <Layout className="layout">
       <Header>
@@ -14,9 +21,16 @@ export default function CustomLayout(props) {
           defaultSelectedKeys={['2']}
           style={{ lineHeight: '64px' }}
         >
-          <Menu.Item key="1">nav 1</Menu.Item>
-          <Menu.Item key="2">nav 2</Menu.Item>
-          <Menu.Item key="3">nav 3</Menu.Item>
+          {props.isAuthenticated ? (
+            <Menu.Item key="2">Logout</Menu.Item>
+          ) : (
+            <Menu.Item key="2">
+              <Link to="/login">Login</Link>
+            </Menu.Item>
+          )}
+          <Menu.Item key="1">
+            <Link to="/">Posts</Link>
+          </Menu.Item>
         </Menu>
       </Header>
       <Content style={{ padding: '0 50px' }}>
@@ -38,3 +52,18 @@ export default function CustomLayout(props) {
     </Layout>
   );
 }
+
+function mapStateToProps(state) {
+  // console.log(state);
+  return {
+    isAuthenticated: state.auth.token !== null
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onTryAutoSignup: () => dispatch(actions.authCheckState())
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CustomLayout);
