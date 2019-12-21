@@ -22,7 +22,9 @@ function CustomLayout(props) {
           style={{ lineHeight: '64px' }}
         >
           {props.isAuthenticated ? (
-            <Menu.Item key="2">Logout</Menu.Item>
+            <Menu.Item key="2" onClick={props.logout}>
+              Logout
+            </Menu.Item>
           ) : (
             <Menu.Item key="2">
               <Link to="/login">Login</Link>
@@ -62,7 +64,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    onTryAutoSignup: () => dispatch(actions.authCheckState())
+    onTryAutoSignup: () => dispatch(actions.authCheckState()),
+    logout: () => dispatch(actions.logout())
   };
 }
 

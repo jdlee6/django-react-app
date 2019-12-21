@@ -2,6 +2,7 @@ import React from 'react';
 import { Form, Icon, Input, Button, Spin } from 'antd';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
+import * as actions from '../actions/authActions';
 
 const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
 
@@ -12,9 +13,10 @@ function LoginForm(props) {
     e.preventDefault();
     props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        props.onAuth(values.username, values.password);
       }
     });
+    props.history.push('/');
   };
 
   let errorMessage = null;
@@ -91,4 +93,11 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(WrappedLoginForm);
+function mapDispatchToProps(dispatch) {
+  return {
+    onAuth: (username, password) =>
+      dispatch(actions.authLogin(username, password))
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(WrappedLoginForm);
