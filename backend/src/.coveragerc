@@ -1,0 +1,7 @@
+[run]
+omit = 
+        /home/joe/Python/DjangoReact/backend/env/*
+        /home/joe/Python/DjangoReact/backend/src/products/tests/*
+        /home/joe/Python/DjangoReact/backend/src/articles/tests/*
+        /home/joe/Python/DjangoReact/backend/src/articles/migrations/*
+        /home/joe/Python/DjangoReact/backend/src/products/migrations/*
